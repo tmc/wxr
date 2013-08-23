@@ -56,8 +56,6 @@ type WpTime time.Time
 
 // UnmarshalText attempts to unmarshall the provided byte slice as a time.RFC1123Z
 func (t *WpTime) UnmarshalText(text []byte) error {
-	// Mon Jan 2 15:04:05 -0700 MST 2006
-	// Mon, 03 Sep 2007 18:23:34 +0000
 	parsed, err := time.Parse(time.RFC1123Z, string(text))
 	*t = WpTime(parsed)
 	return err
