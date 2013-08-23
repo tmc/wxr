@@ -1,3 +1,4 @@
 Package wxr provides structs for unmarshaling Wordpress WXR content.
 
+docs: http://godoc.org/github.com/traviscline/wxr
 license: isc
