@@ -14,11 +14,18 @@ type RSS struct {
 	Channel Channel
 }
 
-// Category describes the categories in the blog export
+// Category describes a category in the blog export
 type Category struct {
 	ID   int    `xml:"term_id"`
 	Slug string `xml:"category_nicename"`
 	Name string `xml:"cat_name"`
+}
+
+// Tag describes a tag in the blog export
+type Tag struct {
+	ID   int    `xml:"term_id"`
+	Slug string `xml:"tag_slug"`
+	Name string `xml:"tag_name"`
 }
 
 // Channel is the element describing the blog
@@ -27,6 +34,7 @@ type Channel struct {
 	Title       string     `xml:"title"`
 	Link        string     `xml:"link"`
 	Categories  []Category `xml:"category"`
+	Tags        []Tag      `xml:"tag"`
 	Description string     `xml:"description"`
 	WXRVersion  string     `xml:"wxr_version"`
 	Items       []Item     `xml:"item"`
@@ -38,15 +46,22 @@ type Item struct {
 	ID         int            `xml:"post_id"`
 	Name       string         `xml:"post_name"`
 	Title      string         `xml:"title"`
+	Author     string         `xml:"creator"`
 	Link       string         `xml:"link"`
 	Categories []ItemCategory `xml:"category"`
-	Type       string         `xml:"post_type"`
-	PubDate    WpTime         `xml:"pubDate"`
+	Content    []string       `xml:"encoded"`
+
+	//Content    struct {
+	//	Body string `xml:",chardata"`
+	//} `xml:"encoded"`
+	Type    string `xml:"post_type"`
+	PubDate WpTime `xml:"pubDate"`
 }
 
-// ItemCategory is a Category that is associated with an Item
+// ItemCategory is a Category or Tag that is associated with an Item
 type ItemCategory struct {
 	XMLName xml.Name `xml:"category"`
+	Domain  string   `xml:"domain,attr"`
 	Slug    string   `xml:"nicename,attr"`
 	Name    string   `xml:",chardata"`
 }
